@@ -1403,4 +1403,4 @@ def export_report(job_id: str):
 @app.get("/jobs", tags=["Jobs"])
 def list_jobs():
     return [{"job_id": k, "status": v["status"], "filename": v["filename"], "created_at": v["created_at"]}
-            for k, v in jobs.items()]
+            for k, v in jobs.get_all().items()]
