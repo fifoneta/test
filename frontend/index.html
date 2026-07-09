@@ -21,9 +21,9 @@
       radial-gradient(circle at 12% 8%, rgba(139,108,255,.13), transparent 40%),
       radial-gradient(circle at 88% 92%, rgba(228,84,196,.10), transparent 45%),
       var(--bg);
-    color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;font-size:15px}
+    color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;font-size:14px}
 
-  header{border-bottom:1px solid var(--border);padding:1.1rem 2rem;display:flex;align-items:center;gap:1rem;
+  header{border-bottom:1px solid var(--border);padding:.85rem 1.2rem;display:flex;align-items:center;gap:1rem;
     background:linear-gradient(90deg,rgba(139,108,255,.12),rgba(228,84,196,.06) 60%,transparent);
     box-shadow:0 1px 0 rgba(139,108,255,.15)}
   .logo{font-family:var(--mono);font-size:1.25rem;font-weight:700;letter-spacing:.2em;background:linear-gradient(135deg,var(--accent),var(--accent2) 55%,var(--blue));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -37,8 +37,8 @@
   .dev-toggle-btn:hover{border-color:var(--accent);color:var(--accent)}
   #apiUrlWrap{display:none}
 
-  main{display:grid;grid-template-columns:360px 1fr;flex:1;min-height:0}
-  aside{border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto;display:flex;flex-direction:column;gap:1.85rem;position:relative;
+  main{display:grid;grid-template-columns:minmax(280px,320px) 1fr;flex:1;min-height:0}
+  aside{border-right:1px solid var(--border);padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1rem;position:relative;
     background:linear-gradient(180deg,rgba(139,108,255,.05),transparent 12%)}
   .aside-scroll-hint{position:sticky;bottom:0;left:0;right:0;height:2.5rem;background:linear-gradient(to bottom,transparent,var(--bg));pointer-events:none;transition:opacity .3s}
   .aside-scroll-hint.hidden{opacity:0}
@@ -112,14 +112,14 @@
   .advice-tips li{font-size:.8rem;color:var(--green);padding:.3rem 0;border-bottom:1px solid var(--border);display:flex;gap:.5rem}
   .advice-tips li::before{content:'→';flex-shrink:0;color:var(--accent)}
 
-  .content{padding:2rem;overflow-y:auto;display:flex;flex-direction:column;gap:1.65rem}
+  .content{padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:.8rem}
 
   .workflow-rail{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.2rem}
   .workflow-chip{padding:.45rem .65rem;border:1px solid var(--border);border-radius:999px;background:var(--surface2);color:var(--muted);font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;transition:all .2s ease}
   .workflow-chip.active{color:var(--text);border-color:var(--accent);background:rgba(139,108,255,.16)}
   .workflow-chip.done{color:var(--green);border-color:rgba(47,230,160,.3);background:rgba(47,230,160,.1)}
-  .process-stack{display:flex;flex-direction:column;gap:.9rem}
-  .process-card{background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);border:1px solid var(--border);border-radius:14px;padding:.9rem;position:relative}
+  .process-stack{display:flex;flex-direction:column;gap:.6rem}
+  .process-card{background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);border:1px solid var(--border);border-radius:12px;padding:.75rem;position:relative}
   .process-card::before{content:'';position:absolute;inset:.7rem auto .7rem 0;width:3px;border-radius:999px;background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:.95}
   .process-card-collapsible > summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.65rem;padding-left:.2rem}
   .process-card-collapsible > summary::-webkit-details-marker{display:none}
@@ -131,14 +131,14 @@
   .process-card-copy{font-size:.74rem;color:var(--muted)}
   .process-card .section-label{margin-bottom:.75rem}
   .process-card-body{display:flex;flex-direction:column;gap:1rem}
-  .content-shell{display:flex;flex-direction:column;gap:1rem}
-  .workflow-hero{background:linear-gradient(120deg,rgba(139,108,255,.12),rgba(228,84,196,.08));border:1px solid rgba(139,108,255,.28);border-radius:14px;padding:1rem 1.1rem;display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:center}
+  .content-shell{display:flex;flex-direction:column;gap:.7rem}
+  .workflow-hero{background:linear-gradient(120deg,rgba(139,108,255,.12),rgba(228,84,196,.08));border:1px solid rgba(139,108,255,.28);border-radius:12px;padding:.8rem .95rem;display:grid;grid-template-columns:1.1fr .9fr;gap:.8rem;align-items:center}
   .workflow-hero h2{font-size:1rem;margin-bottom:.35rem}
   .workflow-hero p{color:var(--muted);font-size:.8rem;line-height:1.45}
   .workflow-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
   .workflow-step{background:rgba(7,8,14,.35);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.6rem .7rem;font-size:.74rem;color:var(--text)}
   .workflow-step strong{display:block;font-size:.72rem;font-family:var(--mono);color:var(--accent);margin-bottom:.2rem;letter-spacing:.08em;text-transform:uppercase}
-  .studio-focus{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(139,108,255,.06));border:1px solid var(--border);border-radius:14px;padding:1rem 1.1rem}
+  .studio-focus{display:grid;grid-template-columns:1.05fr .95fr;gap:.8rem;background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(139,108,255,.06));border:1px solid var(--border);border-radius:12px;padding:.8rem .95rem}
   .studio-focus-copy h3{font-size:.96rem;margin-bottom:.35rem}
   .studio-focus-copy p{color:var(--muted);font-size:.8rem;line-height:1.45}
   .studio-focus-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:.4rem}
@@ -179,8 +179,8 @@
   .progress-bar.indeterminate{animation:indeterminate 1.5s infinite;width:40%}
   @keyframes indeterminate{0%{margin-left:-40%}100%{margin-left:100%}}
 
-  .analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
-  .analysis-panel{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:1.3rem}
+  .analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .analysis-panel{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:1rem}
   .analysis-panel h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--blue);text-transform:uppercase;margin-bottom:1rem}
   .metric-row{display:flex;justify-content:space-between;align-items:baseline;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.86rem}
   .metric-row:last-child{border:none}
@@ -189,7 +189,7 @@
   .metric-value.good{color:var(--green)} .metric-value.warn{color:var(--yellow)}
   .metric-value.bad{color:var(--red)} .metric-value.neutral{color:var(--text)}
 
-  .loudness-meter{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:1.3rem}
+  .loudness-meter{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:1rem}
   .loudness-meter h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem}
   .lufs-display{display:flex;align-items:center;gap:1.5rem;margin-bottom:.75rem}
   .lufs-number{font-family:var(--mono);font-size:2.5rem;font-weight:700;color:var(--accent);line-height:1;text-shadow:0 0 18px rgba(139,108,255,.5)}
@@ -198,7 +198,7 @@
   .lufs-bar-fill{height:100%;border-radius:4px;transition:width .15s,background .15s}
   .lufs-zones{display:flex;justify-content:space-between;font-size:.65rem;font-family:var(--mono);color:var(--muted);margin-top:.3rem}
 
-  .waveform-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:10px;padding:1.3rem}
+  .waveform-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:10px;padding:1rem}
   .waveform-wrap h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--green);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
   .waveform-wrap canvas{width:100%;height:100px;display:block;border-radius:6px;background:var(--surface2);cursor:crosshair}
   .waveform-legend{display:flex;gap:1rem;margin-top:.5rem;font-size:.7rem;font-family:var(--mono);color:var(--muted)}
@@ -214,7 +214,7 @@
   .stem-rec{background:var(--surface2);border:1px solid var(--border);border-left:3px solid #f59e0b;border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem;font-size:.78rem;line-height:1.5}
   .stem-rec .rec-score{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-top:.3rem}
   .stem-rec.kick-bass{border-left-color:var(--accent2)}
-  .spectrum-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:10px;padding:1.3rem}
+  .spectrum-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:10px;padding:1rem}
   .spectrum-wrap h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;margin-bottom:1rem}
   .spectrum-bars{display:flex;gap:8px;align-items:flex-end;height:120px}
   .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%}
@@ -226,7 +226,7 @@
   .legend span::before{content:'■';margin-right:4px}
   .legend .l-before::before{color:var(--muted)} .legend .l-after::before{color:var(--accent)}
 
-  .fft-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:10px;padding:1.3rem}
+  .fft-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:10px;padding:1rem}
   .fft-wrap h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--orange);text-transform:uppercase;margin-bottom:1rem}
   .fft-wrap canvas{width:100%;height:220px;display:block;border-radius:6px;background:var(--surface2)}
 
@@ -238,7 +238,7 @@
   .ab-btn.active-b{border-color:var(--yellow);color:var(--yellow);background:rgba(252,219,62,.1)}
   .ab-label{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
 
-  .preview-wrap{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:1.25rem}
+  .preview-wrap{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:1rem}
   .preview-wrap h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
   .preview-live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
   .preview-live-dot.updating{animation:pulse .6s infinite}
@@ -250,9 +250,20 @@
   .delta.up{background:rgba(62,252,160,.15);color:var(--green)}
   .delta.down{background:rgba(252,92,92,.15);color:var(--red)}
 
-  .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;gap:.75rem;background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(139,108,255,.05));border:1px dashed rgba(139,108,255,.28);border-radius:14px;padding:2rem 1.5rem;min-height:220px}
+  .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;gap:.6rem;background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(139,108,255,.05));border:1px dashed rgba(139,108,255,.28);border-radius:12px;padding:1rem;min-height:180px}
   .empty-state .big{font-size:3rem}
   .empty-state p{font-size:.85rem;max-width:280px;line-height:1.5}
+
+  .content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;align-items:start}
+  .content-grid > .dashboard-wrap,
+  .content-grid > .meters-wrap,
+  .content-grid > .empty-state,
+  .content-grid > .preview-wrap{min-width:0}
+
+  @media(max-width:900px){
+    .content-grid{grid-template-columns:1fr}
+    .control-grid{grid-template-columns:1fr}
+  }
 
   @media(max-width:768px){
     main{grid-template-columns:1fr}
@@ -283,10 +294,35 @@
   .params-preview .pp-actions{display:flex;gap:.5rem;margin-top:.9rem}
   .params-preview .pp-actions button{flex:1}
 
-  .dashboard-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem}
+  .studio-hero{background:linear-gradient(135deg,rgba(139,108,255,.16),rgba(228,84,196,.08));border:1px solid rgba(139,108,255,.28);border-radius:16px;padding:.75rem .85rem;margin-bottom:.55rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+  .studio-hero h2{font-size:.95rem;margin-bottom:.2rem}
+  .studio-hero p{font-size:.72rem;line-height:1.4;color:var(--muted)}
+  .studio-hero-badge{padding:.3rem .55rem;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(7,8,14,.28);font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--accent);white-space:nowrap}
+  .control-rail{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.55rem}
+  .control-rail-chip{padding:.34rem .55rem;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--muted);font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase}
+  .control-rail-chip.active{color:var(--text);border-color:rgba(139,108,255,.45);background:rgba(139,108,255,.16)}
+  .control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .control-card{background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);border:1px solid var(--border);border-radius:12px;padding:.7rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+  .control-card-head{display:flex;align-items:center;justify-content:space-between;gap:.7rem;margin-bottom:.55rem}
+  .control-card-head h3{font-size:.88rem}
+  .control-card-kicker{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:.15rem}
+  .control-card-badge{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--muted);padding:.24rem .5rem;border:1px solid var(--border);border-radius:999px;background:rgba(7,8,14,.28)}
+  .control-card-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(170px,.8fr);gap:.55rem;align-items:start}
+  .control-stack{display:flex;flex-direction:column;gap:.22rem}
+  .control-side{display:flex;flex-direction:column;gap:.45rem}
+  .mini-surface{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.55rem}
+  .mini-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:.4rem}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+  .mini-tag{padding:.25rem .45rem;border-radius:999px;border:1px solid var(--border);font-size:.64rem;color:var(--muted);background:rgba(255,255,255,.03)}
+  .control-card .section-label{margin-bottom:.45rem}
+  .control-card .param{margin-bottom:.55rem}
+  .control-card .eq4-wrap{grid-template-columns:1fr 1fr}
+  .control-card .eq4-band{padding:.55rem .6rem}
+  .control-card .eq-curve-wrap{margin-bottom:.2rem}
+  .dashboard-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem}
   .dashboard-wrap h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
   .dash-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.2s infinite}
-  .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+  .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
   .dash-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:.8rem;transition:border-color .15s}
   .dash-card:nth-child(4n+1){border-top:2px solid var(--accent)}
   .dash-card:nth-child(4n+2){border-top:2px solid var(--blue)}
@@ -299,9 +335,9 @@
   .dash-queue-row{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);font-family:var(--mono);margin-top:.3rem}
   @media(max-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr)}}
 
-  .meters-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:10px;padding:1.25rem}
+  .meters-wrap{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:10px;padding:1rem}
   .meters-wrap h3{font-size:.75rem;font-family:var(--mono);letter-spacing:.1em;color:var(--yellow);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-  .meters-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+  .meters-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem}
   .meter-col{display:flex;flex-direction:column;align-items:center;gap:.5rem}
   .meter-col .meter-name{font-size:.65rem;color:var(--muted);font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase}
   .meter-track{width:28px;height:140px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
@@ -435,13 +471,33 @@
 
 <main>
   <aside>
-    <div class="workflow-rail">
-      <div class="workflow-chip active">1 · Ingreso</div>
-      <div class="workflow-chip">2 · Cadena</div>
-      <div class="workflow-chip">3 · Revisión</div>
+    <div class="studio-hero">
+      <div>
+        <div class="control-card-kicker">Studio console</div>
+        <h2>Mastering por bloques</h2>
+        <p>EQ, compresión, dinámica y limiter en paneles claros, compactos y fáciles de leer.</p>
+      </div>
+      <div class="studio-hero-badge">✓ flujo guiado</div>
     </div>
 
-    <div class="process-stack">
+    <div class="control-rail">
+      <span class="control-rail-chip active">EQ</span>
+      <span class="control-rail-chip">Comp</span>
+      <span class="control-rail-chip">Dinámica</span>
+      <span class="control-rail-chip">Limiter</span>
+    </div>
+
+    <div class="control-grid">
+      <div class="control-card">
+        <div class="control-card-head">
+          <div>
+            <div class="control-card-kicker">EQ</div>
+            <h3>Ecualización</h3>
+          </div>
+          <div class="control-card-badge">Tonal / balance</div>
+        </div>
+        <div class="control-card-body">
+          <div class="control-stack">
       <details class="process-card process-card-collapsible" open>
         <summary class="process-card-header">
           <span class="process-card-step">Paso 1</span>
@@ -561,58 +617,80 @@
       <div class="param"><label>Ganancia de entrada</label><span class="val" id="v-ingain">0.0 dB</span><input type="range" id="s-ingain" min="-24" max="24" step="0.1" value="0"/></div>
     </div>
 
-    <!-- Dinámica (compresor de banda ancha) -->
-    <div>
-      <div class="section-label">Dinámica (banda ancha)</div>
-      <div class="param"><label>Threshold (dB)</label><span class="val" id="v-thresh">-6.0 dB</span><input type="range" id="s-thresh" min="0.0" max="1.0" step="0.01" value="0.5"/></div>
-      <div class="param"><label>Ratio</label><span class="val" id="v-ratio">4.0:1</span><input type="range" id="s-ratio" min="1.0" max="20.0" step="0.5" value="4.0"/></div>
-      <div class="param"><label>Attack</label><span class="val" id="v-cattack">10.0 ms</span><input type="range" id="s-cattack" min="0.1" max="200" step="0.1" value="10"/></div>
-      <div class="param"><label>Release</label><span class="val" id="v-crelease">100 ms</span><input type="range" id="s-crelease" min="10" max="1000" step="5" value="100"/></div>
-      <div class="param"><label>Makeup</label><span class="val" id="v-cmakeup">+0.0 dB</span><input type="range" id="s-cmakeup" min="-12" max="24" step="0.5" value="0"/></div>
-      <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
-        <input type="checkbox" id="s-comp-link" checked style="width:auto;cursor:pointer;"/>Stereo link L/R
-      </label>
-    </div>
-
-
-    <!-- Reducción de Ruido -->
-    <div>
-      <div class="section-label">🎙️ Reducción de Ruido</div>
-      <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
-        <input type="checkbox" id="s-nr-bypass" checked style="width:auto;cursor:pointer;"/>Bypass reducción de ruido
-      </label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;">
+    <div class="control-card">
+      <div class="control-card-head">
         <div>
-          <label class="param-label">Intensidad</label>
-          <input type="range" id="s-nr-strength" min="0" max="1" step="0.05" value="0.5"
-                 oninput="document.getElementById('v-nr-strength').textContent=parseFloat(this.value).toFixed(2)"/>
-          <span class="val-badge" id="v-nr-strength">0.50</span>
-          <span class="param-hint">0 = ninguna · 1 = máxima</span>
+          <div class="control-card-kicker">Comp</div>
+          <h3>Compresión</h3>
         </div>
-        <div>
-          <label class="param-label">Muestra de ruido (seg)</label>
-          <input type="range" id="s-nr-noise-sample-sec" min="0.1" max="5" step="0.1" value="0.5"
-                 oninput="document.getElementById('v-nr-noise-sample-sec').textContent=parseFloat(this.value).toFixed(1)+'s'"/>
-          <span class="val-badge" id="v-nr-noise-sample-sec">0.5s</span>
-          <span class="param-hint">Zona inicial para estimar perfil de ruido</span>
+        <div class="control-card-badge">Control de dinámica</div>
+      </div>
+      <div class="control-card-body">
+        <div class="control-stack">
+          <!-- Dinámica (compresor de banda ancha) -->
+          <div>
+            <div class="section-label">Dinámica (banda ancha)</div>
+            <div class="param"><label>Threshold (dB)</label><span class="val" id="v-thresh">-6.0 dB</span><input type="range" id="s-thresh" min="0.0" max="1.0" step="0.01" value="0.5"/></div>
+            <div class="param"><label>Ratio</label><span class="val" id="v-ratio">4.0:1</span><input type="range" id="s-ratio" min="1.0" max="20.0" step="0.5" value="4.0"/></div>
+            <div class="param"><label>Attack</label><span class="val" id="v-cattack">10.0 ms</span><input type="range" id="s-cattack" min="0.1" max="200" step="0.1" value="10"/></div>
+            <div class="param"><label>Release</label><span class="val" id="v-crelease">100 ms</span><input type="range" id="s-crelease" min="10" max="1000" step="5" value="100"/></div>
+            <div class="param"><label>Makeup</label><span class="val" id="v-cmakeup">+0.0 dB</span><input type="range" id="s-cmakeup" min="-12" max="24" step="0.5" value="0"/></div>
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
+              <input type="checkbox" id="s-comp-link" checked style="width:auto;cursor:pointer;"/>Stereo link L/R
+            </label>
+          </div>
+
+          <!-- Reducción de Ruido -->
+          <div>
+            <div class="section-label">🎙️ Reducción de Ruido</div>
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
+              <input type="checkbox" id="s-nr-bypass" checked style="width:auto;cursor:pointer;"/>Bypass reducción de ruido
+            </label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;">
+              <div>
+                <label class="param-label">Intensidad</label>
+                <input type="range" id="s-nr-strength" min="0" max="1" step="0.05" value="0.5"
+                       oninput="document.getElementById('v-nr-strength').textContent=parseFloat(this.value).toFixed(2)"/>
+                <span class="val-badge" id="v-nr-strength">0.50</span>
+                <span class="param-hint">0 = ninguna · 1 = máxima</span>
+              </div>
+              <div>
+                <label class="param-label">Muestra de ruido (seg)</label>
+                <input type="range" id="s-nr-noise-sample-sec" min="0.1" max="5" step="0.1" value="0.5"
+                       oninput="document.getElementById('v-nr-noise-sample-sec').textContent=parseFloat(this.value).toFixed(1)+'s'"/>
+                <span class="val-badge" id="v-nr-noise-sample-sec">0.5s</span>
+                <span class="param-hint">Zona inicial para estimar perfil de ruido</span>
+              </div>
+            </div>
+            <p style="font-size:.75rem;color:var(--text-muted,#888);margin-top:.6rem;">
+              Elimina hiss, hum y ruido de sala <em>antes</em> de la cadena de mastering. Activar solo si el track tiene ruido de fondo audible.
+            </p>
+          </div>
+
+          <!-- Glue Compressor -->
+          <div>
+            <div class="section-label">Glue Compressor (bus / mix glue)</div>
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
+              <input type="checkbox" id="s-glue-bypass" checked style="width:auto;cursor:pointer;"/>Bypass glue compressor
+            </label>
+            <div class="param"><label>Threshold (dB)</label><span class="val" id="v-glue-thresh">-4.0 dB</span><input type="range" id="s-glue-thresh" min="-24" max="0" step="0.5" value="-4"/></div>
+            <div class="param"><label>Ratio</label><span class="val" id="v-glue-ratio">2.0:1</span><input type="range" id="s-glue-ratio" min="1" max="10" step="0.5" value="2"/></div>
+            <div class="param"><label>Attack</label><span class="val" id="v-glue-attack">30.0 ms</span><input type="range" id="s-glue-attack" min="0.1" max="200" step="0.1" value="30"/></div>
+            <div class="param"><label>Release</label><span class="val" id="v-glue-release">120 ms</span><input type="range" id="s-glue-release" min="10" max="1000" step="5" value="120"/></div>
+            <div class="param"><label>Makeup</label><span class="val" id="v-glue-makeup">+0.0 dB</span><input type="range" id="s-glue-makeup" min="-12" max="12" step="0.5" value="0"/></div>
+          </div>
+        </div>
+        <div class="control-side">
+          <div class="mini-surface">
+            <div class="mini-label">Vista rápida</div>
+            <div class="mini-tags">
+              <span class="mini-tag">Punch</span>
+              <span class="mini-tag">Glue</span>
+              <span class="mini-tag">Bus</span>
+            </div>
+          </div>
         </div>
       </div>
-      <p style="font-size:.75rem;color:var(--text-muted,#888);margin-top:.6rem;">
-        Elimina hiss, hum y ruido de sala <em>antes</em> de la cadena de mastering. Activar solo si el track tiene ruido de fondo audible.
-      </p>
-    </div>
-
-    <!-- Glue Compressor -->
-    <div>
-      <div class="section-label">Glue Compressor (bus / mix glue)</div>
-      <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
-        <input type="checkbox" id="s-glue-bypass" checked style="width:auto;cursor:pointer;"/>Bypass glue compressor
-      </label>
-      <div class="param"><label>Threshold (dB)</label><span class="val" id="v-glue-thresh">-4.0 dB</span><input type="range" id="s-glue-thresh" min="-24" max="0" step="0.5" value="-4"/></div>
-      <div class="param"><label>Ratio</label><span class="val" id="v-glue-ratio">2.0:1</span><input type="range" id="s-glue-ratio" min="1" max="10" step="0.5" value="2"/></div>
-      <div class="param"><label>Attack</label><span class="val" id="v-glue-attack">30.0 ms</span><input type="range" id="s-glue-attack" min="0.1" max="200" step="0.1" value="30"/></div>
-      <div class="param"><label>Release</label><span class="val" id="v-glue-release">120 ms</span><input type="range" id="s-glue-release" min="10" max="1000" step="5" value="120"/></div>
-      <div class="param"><label>Makeup</label><span class="val" id="v-glue-makeup">+0.0 dB</span><input type="range" id="s-glue-makeup" min="-12" max="12" step="0.5" value="0"/></div>
     </div>
 
     <!-- Compresor multibanda -->
@@ -658,35 +736,55 @@
       </div>
     </div>
 
-    <!-- Ecualización -->
-    <div>
-      <div class="section-label">Ecualización</div>
-      <div class="param"><label>High-pass cutoff</label><span class="val" id="v-hp">80 Hz</span><input type="range" id="s-hp" min="20" max="500" step="5" value="80"/></div>
-      <div class="eq4-wrap">
-        <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B1</span></div>
-          <div class="param"><label>Freq</label><span class="val" id="v-eq1freq-disp">100 Hz</span><input type="range" id="s-eq1freq" min="20" max="20000" step="10" value="100"/></div>
-          <div class="param"><label>Gain</label><span class="val" id="v-eq1gain">0 dB</span><input type="range" id="s-eq1gain" min="-18" max="18" step="0.5" value="0"/></div>
-          <div class="param"><label>Q</label><span class="val" id="v-eq1q">1.0</span><input type="range" id="s-eq1q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+    <div class="control-card">
+      <div class="control-card-head">
+        <div>
+          <div class="control-card-kicker">EQ</div>
+          <h3>Ecualización</h3>
         </div>
-        <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B2</span></div>
-          <div class="param"><label>Freq</label><span class="val" id="v-eq2freq-disp">500 Hz</span><input type="range" id="s-eq2freq" min="20" max="20000" step="10" value="500"/></div>
-          <div class="param"><label>Gain</label><span class="val" id="v-eq2gain">0 dB</span><input type="range" id="s-eq2gain" min="-18" max="18" step="0.5" value="0"/></div>
-          <div class="param"><label>Q</label><span class="val" id="v-eq2q">1.0</span><input type="range" id="s-eq2q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+        <div class="control-card-badge">Forma tonal</div>
+      </div>
+      <div class="control-card-body">
+        <div class="control-stack">
+          <div class="section-label">Ecualización</div>
+          <div class="param"><label>High-pass cutoff</label><span class="val" id="v-hp">80 Hz</span><input type="range" id="s-hp" min="20" max="500" step="5" value="80"/></div>
+          <div class="eq4-wrap">
+            <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B1</span></div>
+              <div class="param"><label>Freq</label><span class="val" id="v-eq1freq-disp">100 Hz</span><input type="range" id="s-eq1freq" min="20" max="20000" step="10" value="100"/></div>
+              <div class="param"><label>Gain</label><span class="val" id="v-eq1gain">0 dB</span><input type="range" id="s-eq1gain" min="-18" max="18" step="0.5" value="0"/></div>
+              <div class="param"><label>Q</label><span class="val" id="v-eq1q">1.0</span><input type="range" id="s-eq1q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+            </div>
+            <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B2</span></div>
+              <div class="param"><label>Freq</label><span class="val" id="v-eq2freq-disp">500 Hz</span><input type="range" id="s-eq2freq" min="20" max="20000" step="10" value="500"/></div>
+              <div class="param"><label>Gain</label><span class="val" id="v-eq2gain">0 dB</span><input type="range" id="s-eq2gain" min="-18" max="18" step="0.5" value="0"/></div>
+              <div class="param"><label>Q</label><span class="val" id="v-eq2q">1.0</span><input type="range" id="s-eq2q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+            </div>
+            <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B3</span></div>
+              <div class="param"><label>Freq</label><span class="val" id="v-eq3freq-disp">2 kHz</span><input type="range" id="s-eq3freq" min="20" max="20000" step="10" value="2000"/></div>
+              <div class="param"><label>Gain</label><span class="val" id="v-eq3gain">0 dB</span><input type="range" id="s-eq3gain" min="-18" max="18" step="0.5" value="0"/></div>
+              <div class="param"><label>Q</label><span class="val" id="v-eq3q">1.0</span><input type="range" id="s-eq3q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+            </div>
+            <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B4</span></div>
+              <div class="param"><label>Freq</label><span class="val" id="v-eq4freq-disp">8 kHz</span><input type="range" id="s-eq4freq" min="20" max="20000" step="10" value="8000"/></div>
+              <div class="param"><label>Gain</label><span class="val" id="v-eq4gain">0 dB</span><input type="range" id="s-eq4gain" min="-18" max="18" step="0.5" value="0"/></div>
+              <div class="param"><label>Q</label><span class="val" id="v-eq4q">1.0</span><input type="range" id="s-eq4q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+            </div>
+          </div>
+          <div class="eq-curve-wrap"><canvas id="eqCurveCanvas"></canvas></div>
+          <div class="param"><label>Air / Brillo — High Shelf Gain</label><span class="val" id="v-air">+2 dB</span><input type="range" id="s-air" min="-12" max="12" step="0.5" value="2"/></div>
+          <div class="param"><label>High Shelf — Frecuencia</label><span class="val" id="v-shelf-freq">8.0 kHz</span><input type="range" id="s-shelf-freq" min="1000" max="20000" step="100" value="8000"/></div>
         </div>
-        <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B3</span></div>
-          <div class="param"><label>Freq</label><span class="val" id="v-eq3freq-disp">2 kHz</span><input type="range" id="s-eq3freq" min="20" max="20000" step="10" value="2000"/></div>
-          <div class="param"><label>Gain</label><span class="val" id="v-eq3gain">0 dB</span><input type="range" id="s-eq3gain" min="-18" max="18" step="0.5" value="0"/></div>
-          <div class="param"><label>Q</label><span class="val" id="v-eq3q">1.0</span><input type="range" id="s-eq3q" min="0.1" max="10" step="0.1" value="1.0"/></div>
-        </div>
-        <div class="eq4-band"><div class="eq4-header"><span class="eq4-num">B4</span></div>
-          <div class="param"><label>Freq</label><span class="val" id="v-eq4freq-disp">8 kHz</span><input type="range" id="s-eq4freq" min="20" max="20000" step="10" value="8000"/></div>
-          <div class="param"><label>Gain</label><span class="val" id="v-eq4gain">0 dB</span><input type="range" id="s-eq4gain" min="-18" max="18" step="0.5" value="0"/></div>
-          <div class="param"><label>Q</label><span class="val" id="v-eq4q">1.0</span><input type="range" id="s-eq4q" min="0.1" max="10" step="0.1" value="1.0"/></div>
+        <div class="control-side">
+          <div class="mini-surface">
+            <div class="mini-label">Vista rápida</div>
+            <div class="mini-tags">
+              <span class="mini-tag">HPF</span>
+              <span class="mini-tag">Shelf</span>
+              <span class="mini-tag">Air</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="eq-curve-wrap"><canvas id="eqCurveCanvas"></canvas></div>
-      <div class="param"><label>Air / Brillo — High Shelf Gain</label><span class="val" id="v-air">+2 dB</span><input type="range" id="s-air" min="-12" max="12" step="0.5" value="2"/></div>
-      <div class="param"><label>High Shelf — Frecuencia</label><span class="val" id="v-shelf-freq">8.0 kHz</span><input type="range" id="s-shelf-freq" min="1000" max="20000" step="100" value="8000"/></div>
     </div>
 
     <!-- Transient Shaper -->
@@ -775,16 +873,36 @@
       <div class="param"><label>FIR Taps (fase lineal)</label><span class="val" id="v-lp-taps">2049</span><input type="range" id="s-lp-taps" min="257" max="8193" step="256" value="2049"/></div>
     </div>
 
-    <!-- Normalización & Limiter -->
-    <div>
-      <div class="section-label">Normalización &amp; Limiter</div>
-      <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
-        <input type="checkbox" id="s-uselufs" style="width:auto;cursor:pointer;"/>Normalizar por LUFS
-      </label>
-      <div class="param"><label>Target Peak (dBTP)</label><span class="val" id="v-peak">-0.4 dBTP</span><input type="range" id="s-peak" min="0.1" max="1.0" step="0.01" value="0.95"/></div>
-      <div class="param"><label>LUFS objetivo</label><span class="val" id="v-lufstarget">-14.0 LUFS</span><input type="range" id="s-lufstarget" min="-40" max="0" step="0.5" value="-14"/></div>
-      <div class="param"><label>Limiter — techo (dBTP)</label><span class="val" id="v-ceiling">-0.1 dBTP</span><input type="range" id="s-ceiling" min="0.5" max="1.0" step="0.01" value="0.99"/></div>
-      <div class="param"><label>Limiter — release</label><span class="val" id="v-lrelease">50 ms</span><input type="range" id="s-lrelease" min="1" max="500" step="1" value="50"/></div>
+    <div class="control-card">
+      <div class="control-card-head">
+        <div>
+          <div class="control-card-kicker">Limiter</div>
+          <h3>Normalización y salida</h3>
+        </div>
+        <div class="control-card-badge">Peak / LUFS</div>
+      </div>
+      <div class="control-card-body">
+        <div class="control-stack">
+          <div class="section-label">Normalización &amp; Limiter</div>
+          <label style="display:flex;align-items:center;gap:.5rem;font-size:.8rem;margin-bottom:.9rem;cursor:pointer;">
+            <input type="checkbox" id="s-uselufs" style="width:auto;cursor:pointer;"/>Normalizar por LUFS
+          </label>
+          <div class="param"><label>Target Peak (dBTP)</label><span class="val" id="v-peak">-0.4 dBTP</span><input type="range" id="s-peak" min="0.1" max="1.0" step="0.01" value="0.95"/></div>
+          <div class="param"><label>LUFS objetivo</label><span class="val" id="v-lufstarget">-14.0 LUFS</span><input type="range" id="s-lufstarget" min="-40" max="0" step="0.5" value="-14"/></div>
+          <div class="param"><label>Limiter — techo (dBTP)</label><span class="val" id="v-ceiling">-0.1 dBTP</span><input type="range" id="s-ceiling" min="0.5" max="1.0" step="0.01" value="0.99"/></div>
+          <div class="param"><label>Limiter — release</label><span class="val" id="v-lrelease">50 ms</span><input type="range" id="s-lrelease" min="1" max="500" step="1" value="50"/></div>
+        </div>
+        <div class="control-side">
+          <div class="mini-surface">
+            <div class="mini-label">Salida</div>
+            <div class="mini-tags">
+              <span class="mini-tag">Peak</span>
+              <span class="mini-tag">LUFS</span>
+              <span class="mini-tag">Ceiling</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Salida -->
@@ -877,115 +995,117 @@
         </div>
       </div>
 
-      <div class="dashboard-wrap" id="dashboardWrap">
-      <h3><span class="dash-live-dot"></span>Dashboard<span class="meters-toggle" id="dashToggle">ocultar</span></h3>
-      <div id="dashboardBody">
-        <div class="dash-grid">
-          <div class="dash-card"><div class="dash-label">CPU</div><div class="dash-value" id="dashCpu">--%</div><div class="dash-bar-track"><div class="dash-bar-fill" id="dashCpuBar" style="width:0%"></div></div></div>
-          <div class="dash-card"><div class="dash-label">RAM</div><div class="dash-value" id="dashRam">--%</div><div class="dash-bar-track"><div class="dash-bar-fill" id="dashRamBar" style="width:0%"></div></div></div>
-          <div class="dash-card"><div class="dash-label">Cola</div><div class="dash-value" id="dashQueueTotal">0</div><div class="dash-queue-row"><span id="dashQueued">en cola: 0</span><span id="dashProcessing">procesando: 0</span></div></div>
-          <div class="dash-card"><div class="dash-label">Estado / ETA</div><div class="dash-value" id="dashEta" style="font-size:1rem">Inactivo</div><div class="dash-queue-row" id="dashActiveFile"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="meters-wrap" id="metersWrap" style="display:none">
-      <h3>Peak · RMS · LUFS · Stereo <span class="meters-toggle" id="metersToggle">ocultar</span></h3>
-      <div id="metersBody">
-        <div class="meters-grid">
-          <div class="meter-col"><div class="meter-track"><div class="meter-fill" id="meterPeakFill" style="height:0%"></div></div><div class="meter-name">Peak</div><div class="meter-readout" id="meterPeakReadout">-∞ dB</div></div>
-          <div class="meter-col"><div class="meter-track"><div class="meter-fill" id="meterRmsFill" style="height:0%"></div></div><div class="meter-name">RMS</div><div class="meter-readout" id="meterRmsReadout">-∞ dB</div></div>
-          <div class="meter-col"><div class="meter-track"><div class="meter-fill" id="meterLufsFill" style="height:0%"></div></div><div class="meter-name">LUFS</div><div class="meter-readout" id="meterLufsReadout">-∞</div></div>
-        </div>
-        <div style="margin-top:1rem">
-          <div class="meter-name" style="margin-bottom:.4rem">Stereo (correlación L/R)</div>
-          <div class="stereo-meter-track"><div class="stereo-meter-center"></div><div class="stereo-meter-fill" id="stereoMeterFill" style="left:50%;width:2px"></div></div>
-          <div class="meter-readout" id="stereoMeterReadout" style="margin-top:.3rem">corr: --</div>
+      <div class="content-grid">
+        <div class="dashboard-wrap" id="dashboardWrap">
+          <h3><span class="dash-live-dot"></span>Dashboard<span class="meters-toggle" id="dashToggle">ocultar</span></h3>
+          <div id="dashboardBody">
+            <div class="dash-grid">
+              <div class="dash-card"><div class="dash-label">CPU</div><div class="dash-value" id="dashCpu">--%</div><div class="dash-bar-track"><div class="dash-bar-fill" id="dashCpuBar" style="width:0%"></div></div></div>
+              <div class="dash-card"><div class="dash-label">RAM</div><div class="dash-value" id="dashRam">--%</div><div class="dash-bar-track"><div class="dash-bar-fill" id="dashRamBar" style="width:0%"></div></div></div>
+              <div class="dash-card"><div class="dash-label">Cola</div><div class="dash-value" id="dashQueueTotal">0</div><div class="dash-queue-row"><span id="dashQueued">en cola: 0</span><span id="dashProcessing">procesando: 0</span></div></div>
+              <div class="dash-card"><div class="dash-label">Estado / ETA</div><div class="dash-value" id="dashEta" style="font-size:1rem">Inactivo</div><div class="dash-queue-row" id="dashActiveFile"></div></div>
+            </div>
+          </div>
         </div>
 
-        <!-- Espectrómetro en tiempo real -->
-        <div style="margin-top:1.2rem;border-top:1px solid var(--border);padding-top:1rem">
-          <div class="meter-name" style="margin-bottom:.4rem">Espectro en tiempo real</div>
-          <div class="live-spectrum-wrap"><canvas id="liveSpectrumCanvas"></canvas></div>
-          <div class="freqbands-grid">
-            <div class="freqband-row"><span class="freqband-label">Sub 20-60</span><div class="freqband-track"><div class="freqband-fill" id="fb-sub"></div></div><span class="freqband-val" id="fbv-sub">-∞</span></div>
-            <div class="freqband-row"><span class="freqband-label">Bass 60-250</span><div class="freqband-track"><div class="freqband-fill" id="fb-bass"></div></div><span class="freqband-val" id="fbv-bass">-∞</span></div>
-            <div class="freqband-row"><span class="freqband-label">L-Mid 250-800</span><div class="freqband-track"><div class="freqband-fill" id="fb-lowmid"></div></div><span class="freqband-val" id="fbv-lowmid">-∞</span></div>
-            <div class="freqband-row"><span class="freqband-label">Mid .8-3k</span><div class="freqband-track"><div class="freqband-fill" id="fb-mid"></div></div><span class="freqband-val" id="fbv-mid">-∞</span></div>
-            <div class="freqband-row"><span class="freqband-label">H-Mid 3-8k</span><div class="freqband-track"><div class="freqband-fill" id="fb-highmid"></div></div><span class="freqband-val" id="fbv-highmid">-∞</span></div>
-            <div class="freqband-row"><span class="freqband-label">Air 8-20k</span><div class="freqband-track"><div class="freqband-fill" id="fb-air"></div></div><span class="freqband-val" id="fbv-air">-∞</span></div>
-          </div>
-        </div>
-        <!-- Multiband Gain Reduction meters -->
-        <div class="mb-gr-section" id="mbGrSection" style="display:none">
-          <div class="mb-gr-title">Reducción de Ganancia Multibanda</div>
-          <div class="mb-gr-grid">
-            <div class="mb-gr-col">
-              <div class="mb-gr-label">Low</div>
-              <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarLow"></div></div>
-              <div class="mb-gr-readout" id="grReadLow">0.0 dB</div>
+        <div class="meters-wrap" id="metersWrap" style="display:none">
+          <h3>Peak · RMS · LUFS · Stereo <span class="meters-toggle" id="metersToggle">ocultar</span></h3>
+          <div id="metersBody">
+            <div class="meters-grid">
+              <div class="meter-col"><div class="meter-track"><div class="meter-fill" id="meterPeakFill" style="height:0%"></div></div><div class="meter-name">Peak</div><div class="meter-readout" id="meterPeakReadout">-∞ dB</div></div>
+              <div class="meter-col"><div class="meter-track"><div class="meter-fill" id="meterRmsFill" style="height:0%"></div></div><div class="meter-name">RMS</div><div class="meter-readout" id="meterRmsReadout">-∞ dB</div></div>
+              <div class="meter-col"><div class="meter-track"><div class="meter-fill" id="meterLufsFill" style="height:0%"></div></div><div class="meter-name">LUFS</div><div class="meter-readout" id="meterLufsReadout">-∞</div></div>
             </div>
-            <div class="mb-gr-col">
-              <div class="mb-gr-label">Mid</div>
-              <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarMid"></div></div>
-              <div class="mb-gr-readout" id="grReadMid">0.0 dB</div>
+            <div style="margin-top:.8rem">
+              <div class="meter-name" style="margin-bottom:.4rem">Stereo (correlación L/R)</div>
+              <div class="stereo-meter-track"><div class="stereo-meter-center"></div><div class="stereo-meter-fill" id="stereoMeterFill" style="left:50%;width:2px"></div></div>
+              <div class="meter-readout" id="stereoMeterReadout" style="margin-top:.3rem">corr: --</div>
             </div>
-            <div class="mb-gr-col">
-              <div class="mb-gr-label">High</div>
-              <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarHigh"></div></div>
-              <div class="mb-gr-readout" id="grReadHigh">0.0 dB</div>
-            </div>
-          </div>
-          <!-- Broadband ("Dinámica") + Glue Gain Reduction meters -->
-          <div class="mb-gr-title" style="margin-top:1rem">Dinámica (banda ancha) &amp; Glue</div>
-          <div class="mb-gr-grid" style="grid-template-columns:1fr 1fr">
-            <div class="mb-gr-col">
-              <div class="mb-gr-label">Comp</div>
-              <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarComp"></div></div>
-              <div class="mb-gr-readout" id="grReadComp">0.0 dB</div>
-            </div>
-            <div class="mb-gr-col">
-              <div class="mb-gr-label">Glue</div>
-              <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarGlue"></div></div>
-              <div class="mb-gr-readout" id="grReadGlue">bypass</div>
-            </div>
-          </div>
-          <!-- Pre/Post limiter VU snapshot -->
-          <div class="mb-vu-section" id="mbVuSection">
-            <div class="mb-vu-item">
-              <div class="mb-vu-label">Pre-Limiter</div>
-              <div class="mb-vu-row"><span class="mb-vu-key">RMS</span><span class="mb-vu-val" id="vuPreRms">--</span></div>
-              <div class="mb-vu-row"><span class="mb-vu-key">Peak</span><span class="mb-vu-val" id="vuPrePeak">--</span></div>
-            </div>
-            <div class="mb-vu-item">
-              <div class="mb-vu-label">Post-Limiter</div>
-              <div class="mb-vu-row"><span class="mb-vu-key">RMS</span><span class="mb-vu-val" id="vuPostRms">--</span></div>
-              <div class="mb-vu-row"><span class="mb-vu-key">Peak</span><span class="mb-vu-val" id="vuPostPeak">--</span></div>
-              <div class="mb-vu-row"><span class="mb-vu-key">LUFS</span><span class="mb-vu-val" id="vuPostLufs">--</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="empty-state" id="emptyState">
-      <div class="big">🎚️</div>
-      <p>Subí un archivo de audio para ver el análisis y comenzar el mastering.</p>
-    </div>
-    <div class="preview-wrap" id="previewWrap" style="display:none">
-      <h3><span class="preview-live-dot" id="previewDot"></span>Preview en tiempo real <span class="preview-mode-badge" id="previewModeBadge">backend 10s</span></h3>
-      <!-- Visualizador de espectro en vivo (durante el streaming) -->
-      <div id="liveSpectrumWrap" style="display:none;margin-bottom:.8rem;">
-        <div style="font-size:.75rem;color:var(--text-muted,#888);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f04;animation:pulse 1s infinite;"></span>
-          Analizador de espectro en vivo
+            <!-- Espectrómetro en tiempo real -->
+            <div style="margin-top:.8rem;border-top:1px solid var(--border);padding-top:.8rem">
+              <div class="meter-name" style="margin-bottom:.4rem">Espectro en tiempo real</div>
+              <div class="live-spectrum-wrap"><canvas id="liveSpectrumCanvas"></canvas></div>
+              <div class="freqbands-grid">
+                <div class="freqband-row"><span class="freqband-label">Sub 20-60</span><div class="freqband-track"><div class="freqband-fill" id="fb-sub"></div></div><span class="freqband-val" id="fbv-sub">-∞</span></div>
+                <div class="freqband-row"><span class="freqband-label">Bass 60-250</span><div class="freqband-track"><div class="freqband-fill" id="fb-bass"></div></div><span class="freqband-val" id="fbv-bass">-∞</span></div>
+                <div class="freqband-row"><span class="freqband-label">L-Mid 250-800</span><div class="freqband-track"><div class="freqband-fill" id="fb-lowmid"></div></div><span class="freqband-val" id="fbv-lowmid">-∞</span></div>
+                <div class="freqband-row"><span class="freqband-label">Mid .8-3k</span><div class="freqband-track"><div class="freqband-fill" id="fb-mid"></div></div><span class="freqband-val" id="fbv-mid">-∞</span></div>
+                <div class="freqband-row"><span class="freqband-label">H-Mid 3-8k</span><div class="freqband-track"><div class="freqband-fill" id="fb-highmid"></div></div><span class="freqband-val" id="fbv-highmid">-∞</span></div>
+                <div class="freqband-row"><span class="freqband-label">Air 8-20k</span><div class="freqband-track"><div class="freqband-fill" id="fb-air"></div></div><span class="freqband-val" id="fbv-air">-∞</span></div>
+              </div>
+            </div>
+            <!-- Multiband Gain Reduction meters -->
+            <div class="mb-gr-section" id="mbGrSection" style="display:none">
+              <div class="mb-gr-title">Reducción de Ganancia Multibanda</div>
+              <div class="mb-gr-grid">
+                <div class="mb-gr-col">
+                  <div class="mb-gr-label">Low</div>
+                  <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarLow"></div></div>
+                  <div class="mb-gr-readout" id="grReadLow">0.0 dB</div>
+                </div>
+                <div class="mb-gr-col">
+                  <div class="mb-gr-label">Mid</div>
+                  <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarMid"></div></div>
+                  <div class="mb-gr-readout" id="grReadMid">0.0 dB</div>
+                </div>
+                <div class="mb-gr-col">
+                  <div class="mb-gr-label">High</div>
+                  <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarHigh"></div></div>
+                  <div class="mb-gr-readout" id="grReadHigh">0.0 dB</div>
+                </div>
+              </div>
+              <!-- Broadband ("Dinámica") + Glue Gain Reduction meters -->
+              <div class="mb-gr-title" style="margin-top:.8rem">Dinámica (banda ancha) &amp; Glue</div>
+              <div class="mb-gr-grid" style="grid-template-columns:1fr 1fr">
+                <div class="mb-gr-col">
+                  <div class="mb-gr-label">Comp</div>
+                  <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarComp"></div></div>
+                  <div class="mb-gr-readout" id="grReadComp">0.0 dB</div>
+                </div>
+                <div class="mb-gr-col">
+                  <div class="mb-gr-label">Glue</div>
+                  <div class="mb-gr-bar-wrap"><div class="mb-gr-bar" id="grBarGlue"></div></div>
+                  <div class="mb-gr-readout" id="grReadGlue">bypass</div>
+                </div>
+              </div>
+              <!-- Pre/Post limiter VU snapshot -->
+              <div class="mb-vu-section" id="mbVuSection">
+                <div class="mb-vu-item">
+                  <div class="mb-vu-label">Pre-Limiter</div>
+                  <div class="mb-vu-row"><span class="mb-vu-key">RMS</span><span class="mb-vu-val" id="vuPreRms">--</span></div>
+                  <div class="mb-vu-row"><span class="mb-vu-key">Peak</span><span class="mb-vu-val" id="vuPrePeak">--</span></div>
+                </div>
+                <div class="mb-vu-item">
+                  <div class="mb-vu-label">Post-Limiter</div>
+                  <div class="mb-vu-row"><span class="mb-vu-key">RMS</span><span class="mb-vu-val" id="vuPostRms">--</span></div>
+                  <div class="mb-vu-row"><span class="mb-vu-key">Peak</span><span class="mb-vu-val" id="vuPostPeak">--</span></div>
+                  <div class="mb-vu-row"><span class="mb-vu-key">LUFS</span><span class="mb-vu-val" id="vuPostLufs">--</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <canvas id="liveSpectrumCanvas" height="80"
-          style="width:100%;border-radius:6px;background:var(--bg2,#1a1a1a);display:block;"></canvas>
+
+        <div class="empty-state" id="emptyState">
+          <div class="big">🎚️</div>
+          <p>Subí un archivo de audio para ver el análisis y comenzar el mastering.</p>
+        </div>
+        <div class="preview-wrap" id="previewWrap" style="display:none">
+          <h3><span class="preview-live-dot" id="previewDot"></span>Preview en tiempo real <span class="preview-mode-badge" id="previewModeBadge">backend 10s</span></h3>
+          <!-- Visualizador de espectro en vivo (durante el streaming) -->
+          <div id="liveSpectrumWrap" style="display:none;margin-bottom:.8rem;">
+            <div style="font-size:.75rem;color:var(--text-muted,#888);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f04;animation:pulse 1s infinite;"></span>
+              Analizador de espectro en vivo
+            </div>
+            <canvas id="liveSpectrumCanvas" height="80"
+              style="width:100%;border-radius:6px;background:var(--bg2,#1a1a1a);display:block;"></canvas>
+          </div>
+          <canvas id="previewCanvas"></canvas>
+          <div class="preview-audio" id="previewAudioWrap"></div>
+        </div>
       </div>
-      <canvas id="previewCanvas"></canvas>
-      <div class="preview-audio" id="previewAudioWrap"></div>
-    </div>
     </div>
   </div>
 </main>
