@@ -4,6 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import run_in_threadpool
 from typing import Optional
 import os, uuid, logging, time, asyncio
+try:
+    from .job_store import JobStore
+    from .validation_utils import MAX_FILE_SIZE, coerce_ws_chain_params, validate_audio_file
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from job_store import JobStore
+    from validation_utils import MAX_FILE_SIZE, coerce_ws_chain_params, validate_audio_file
 from mastering import (
     process_audio, analyze_audio, spectrum_analysis_fft, mix_advice,
     MASTERING_PRESETS, get_preset, PLATFORM_LOUDNESS_TARGETS, get_platform_target,
@@ -14,7 +20,7 @@ from stem_separation import separate_stems
 from stem_analysis import analyze_stems_full
 from system_monitor import get_system_stats
 import ai_assistant
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import librosa, numpy as np, soundfile as sf
 
 logging.basicConfig(level=logging.INFO)
@@ -26,22 +32,13 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 UPLOAD_DIR    = "uploads"
 PROCESSED_DIR = "processed"
 STEMS_DIR     = "processed_stems"   # subcarpeta por job_id con los 4 WAV de stems
-ALLOWED_EXTENSIONS = {".wav", ".mp3", ".flac", ".ogg", ".aiff", ".aif"}
-MAX_FILE_SIZE  = 200 * 1024 * 1024   # 200 MB
 PROCESSED_TTL  = 3600
 
 os.makedirs(UPLOAD_DIR,    exist_ok=True)
 os.makedirs(PROCESSED_DIR, exist_ok=True)
 os.makedirs(STEMS_DIR,     exist_ok=True)
 
-jobs: dict = {}
-
-def validate_audio_file(filename: str) -> None:
-    if not filename or not isinstance(filename, str):
-        raise HTTPException(400, "Nombre de archivo inválido o faltante.")
-    ext = os.path.splitext(filename)[-1].lower()
-    if ext not in ALLOWED_EXTENSIONS:
-        raise HTTPException(400, f"Formato '{ext}' no soportado. Válidos: {sorted(ALLOWED_EXTENSIONS)}")
+jobs = JobStore()
 
 def sanitize_track_name(name: Optional[str], fallback: str = "mastered") -> str:
     """Limpia un nombre de tema provisto por el usuario para usarlo como filename seguro."""
@@ -86,38 +83,6 @@ def _get_input_duration(input_path: str) -> Optional[float]:
         logger.warning(f"No se pudo calcular la duración de '{input_path}': {e}")
     return None
 
-
-_BOOL_QUERY_KEYS = {
-    "use_lufs_normalize", "comp_stereo_link", "mb_bypass", "mb_stereo_bypass",
-    "use_stereo_enhancer", "glue_bypass",
-}
-
-def coerce_ws_chain_params(params: dict) -> dict:
-    """Convierte params recibidos por WebSocket desde URLSearchParams/JSON.
-
-    El frontend arma el stream preview a partir de URLSearchParams; eso convierte
-    floats/bools a strings. FastAPI hace este casteo automáticamente en endpoints
-    REST, pero el WebSocket no, y el DSP espera números/bools reales.
-    """
-    out = {}
-    for key, value in params.items():
-        if key in _BOOL_QUERY_KEYS:
-            if isinstance(value, str):
-                out[key] = value.strip().lower() in {"1", "true", "yes", "on", "sí", "si"}
-            else:
-                out[key] = bool(value)
-            continue
-        if isinstance(value, str):
-            value = value.strip()
-            if value == "":
-                continue
-            try:
-                out[key] = float(value)
-                continue
-            except ValueError:
-                pass
-        out[key] = value
-    return out
 
 def cleanup_old() -> None:
     now = time.time()
@@ -349,7 +314,7 @@ class AiChatMessage(BaseModel):
 
 class AiChatRequest(BaseModel):
     message: str
-    history: list[AiChatMessage] = []
+    history: list[AiChatMessage] = Field(default_factory=list)
     analysis: Optional[dict] = None
     preset: Optional[str] = None
     platform: Optional[str] = None
