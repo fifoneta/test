@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from .job_store import JobStore
+try:
+    from .job_store import JobStore
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from job_store import JobStore
 
 
 class JobService:

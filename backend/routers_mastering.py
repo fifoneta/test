@@ -7,17 +7,30 @@ from typing import Optional
 from fastapi import APIRouter, BackgroundTasks, File, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse
 
-from .audio_service import AudioService
-from .job_service import JobService
-from .mastering import get_preset, get_platform_target, process_audio, process_audio_with_reference, measure_lufs_integrated
-from .stem_analysis import analyze_stems_full
-from .stem_separation import separate_stems
-from .streaming_engine import master_stream_to_pcm16
-from .system_monitor import get_system_stats
-from .validation_utils import validate_audio_file, coerce_ws_chain_params
-from .config import MAX_FILE_SIZE
-from .ai_assistant import decide_mastering
-from .mastering import MASTERING_PRESETS, PLATFORM_LOUDNESS_TARGETS, analyze_audio, mix_advice, spectrum_analysis_fft, _crop_preview
+try:
+    from .audio_service import AudioService
+    from .job_service import JobService
+    from .mastering import get_preset, get_platform_target, process_audio, process_audio_with_reference, measure_lufs_integrated
+    from .stem_analysis import analyze_stems_full
+    from .stem_separation import separate_stems
+    from .streaming_engine import master_stream_to_pcm16
+    from .system_monitor import get_system_stats
+    from .validation_utils import validate_audio_file, coerce_ws_chain_params
+    from .config import MAX_FILE_SIZE
+    from .ai_assistant import decide_mastering
+    from .mastering import MASTERING_PRESETS, PLATFORM_LOUDNESS_TARGETS, analyze_audio, mix_advice, spectrum_analysis_fft, _crop_preview
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from audio_service import AudioService
+    from job_service import JobService
+    from mastering import get_preset, get_platform_target, process_audio, process_audio_with_reference, measure_lufs_integrated
+    from stem_analysis import analyze_stems_full
+    from stem_separation import separate_stems
+    from streaming_engine import master_stream_to_pcm16
+    from system_monitor import get_system_stats
+    from validation_utils import validate_audio_file, coerce_ws_chain_params
+    from config import MAX_FILE_SIZE
+    from ai_assistant import decide_mastering
+    from mastering import MASTERING_PRESETS, PLATFORM_LOUDNESS_TARGETS, analyze_audio, mix_advice, spectrum_analysis_fft, _crop_preview
 import librosa
 import numpy as np
 import soundfile as sf

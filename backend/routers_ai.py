@@ -8,9 +8,14 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel, Field
 
-from .ai_assistant import get_unavailable_reason, is_available, AI_MODEL, chat as ai_chat
-from .job_service import JobService
-from .system_monitor import get_system_stats
+try:
+    from .ai_assistant import get_unavailable_reason, is_available, AI_MODEL, chat as ai_chat
+    from .job_service import JobService
+    from .system_monitor import get_system_stats
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from ai_assistant import get_unavailable_reason, is_available, AI_MODEL, chat as ai_chat
+    from job_service import JobService
+    from system_monitor import get_system_stats
 
 router = APIRouter()
 

@@ -7,7 +7,10 @@ import librosa
 import numpy as np
 import soundfile as sf
 
-from .mastering import analyze_audio, mix_advice, spectrum_analysis_fft
+try:
+    from .mastering import analyze_audio, mix_advice, spectrum_analysis_fft
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from mastering import analyze_audio, mix_advice, spectrum_analysis_fft
 
 
 class AudioService:

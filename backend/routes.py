@@ -7,11 +7,18 @@ from typing import Optional
 from fastapi import APIRouter, BackgroundTasks, File, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 
-from .audio_service import AudioService
-from .job_service import JobService
-from .mastering import mix_advice
-from .validation_utils import validate_audio_file
-from .config import MAX_FILE_SIZE
+try:
+    from .audio_service import AudioService
+    from .job_service import JobService
+    from .mastering import mix_advice
+    from .validation_utils import validate_audio_file
+    from .config import MAX_FILE_SIZE
+except ImportError:  # pragma: no cover - fallback for direct script execution
+    from audio_service import AudioService
+    from job_service import JobService
+    from mastering import mix_advice
+    from validation_utils import validate_audio_file
+    from config import MAX_FILE_SIZE
 
 router = APIRouter()
 

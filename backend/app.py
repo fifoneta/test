@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import run_in_threadpool
 from typing import Optional
 import os, uuid, logging, time, asyncio
+from pydantic import BaseModel, Field
 try:
     from .job_service import JobService
     from .audio_service import AudioService
@@ -12,22 +13,36 @@ except ImportError:  # pragma: no cover - fallback for direct script execution
     from job_service import JobService
     from audio_service import AudioService
     from validation_utils import MAX_FILE_SIZE, coerce_ws_chain_params, validate_audio_file
-from mastering import (
-    process_audio, analyze_audio, spectrum_analysis_fft, mix_advice,
-    MASTERING_PRESETS, get_preset, PLATFORM_LOUDNESS_TARGETS, get_platform_target,
-    process_audio_with_reference, _crop_preview, measure_lufs_integrated,
-)
-from streaming_engine import master_stream_to_pcm16
-from stem_separation import separate_stems
-from stem_analysis import analyze_stems_full
-from system_monitor import get_system_stats
-import ai_assistant
-from pydantic import BaseModel, Field
-import librosa, numpy as np, soundfile as sf
-from routes import build_routes
-from routers_mastering import build_mastering_router
-from routers_ai import build_ai_router
-from config import UPLOAD_DIR, PROCESSED_DIR, STEMS_DIR, PROCESSED_TTL, MAX_FILE_SIZE
+try:
+    from .mastering import (
+        process_audio, analyze_audio, spectrum_analysis_fft, mix_advice,
+        MASTERING_PRESETS, get_preset, PLATFORM_LOUDNESS_TARGETS, get_platform_target,
+        process_audio_with_reference, _crop_preview, measure_lufs_integrated,
+    )
+    from .streaming_engine import master_stream_to_pcm16
+    from .stem_separation import separate_stems
+    from .stem_analysis import analyze_stems_full
+    from .system_monitor import get_system_stats
+    from . import ai_assistant
+    from .routes import build_routes
+    from .routers_mastering import build_mastering_router
+    from .routers_ai import build_ai_router
+    from .config import UPLOAD_DIR, PROCESSED_DIR, STEMS_DIR, PROCESSED_TTL, MAX_FILE_SIZE
+except ImportError:
+    from mastering import (
+        process_audio, analyze_audio, spectrum_analysis_fft, mix_advice,
+        MASTERING_PRESETS, get_preset, PLATFORM_LOUDNESS_TARGETS, get_platform_target,
+        process_audio_with_reference, _crop_preview, measure_lufs_integrated,
+    )
+    from streaming_engine import master_stream_to_pcm16
+    from stem_separation import separate_stems
+    from stem_analysis import analyze_stems_full
+    from system_monitor import get_system_stats
+    import ai_assistant
+    from routes import build_routes
+    from routers_mastering import build_mastering_router
+    from routers_ai import build_ai_router
+    from config import UPLOAD_DIR, PROCESSED_DIR, STEMS_DIR, PROCESSED_TTL, MAX_FILE_SIZE
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -48,7 +63,6 @@ jobs = JobService()
 audio_service = AudioService(upload_dir=UPLOAD_DIR)
 app_state = {
     "run_in_threadpool": run_in_threadpool,
-    "sanitize_track_name": sanitize_track_name,
 }
 app.include_router(build_routes(jobs, audio_service, UPLOAD_DIR, app_state))
 app.include_router(build_mastering_router(jobs, audio_service, UPLOAD_DIR, PROCESSED_DIR, STEMS_DIR, app_state))
