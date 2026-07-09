@@ -27,6 +27,7 @@ import librosa, numpy as np, soundfile as sf
 from routes import build_routes
 from routers_mastering import build_mastering_router
 from routers_ai import build_ai_router
+from config import UPLOAD_DIR, PROCESSED_DIR, STEMS_DIR, PROCESSED_TTL, MAX_FILE_SIZE
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -34,10 +35,10 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Audio Mastering API", version="7.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-UPLOAD_DIR    = "uploads"
-PROCESSED_DIR = "processed"
-STEMS_DIR     = "processed_stems"   # subcarpeta por job_id con los 4 WAV de stems
-PROCESSED_TTL  = 3600
+UPLOAD_DIR    = UPLOAD_DIR
+PROCESSED_DIR = PROCESSED_DIR
+STEMS_DIR     = STEMS_DIR   # subcarpeta por job_id con los 4 WAV de stems
+PROCESSED_TTL  = PROCESSED_TTL
 
 os.makedirs(UPLOAD_DIR,    exist_ok=True)
 os.makedirs(PROCESSED_DIR, exist_ok=True)

@@ -10,7 +10,8 @@ from fastapi.responses import FileResponse, JSONResponse
 from .audio_service import AudioService
 from .job_service import JobService
 from .mastering import mix_advice
-from .validation_utils import MAX_FILE_SIZE, validate_audio_file
+from .validation_utils import validate_audio_file
+from .config import MAX_FILE_SIZE
 
 router = APIRouter()
 

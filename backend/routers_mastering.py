@@ -14,7 +14,8 @@ from .stem_analysis import analyze_stems_full
 from .stem_separation import separate_stems
 from .streaming_engine import master_stream_to_pcm16
 from .system_monitor import get_system_stats
-from .validation_utils import MAX_FILE_SIZE, validate_audio_file, coerce_ws_chain_params
+from .validation_utils import validate_audio_file, coerce_ws_chain_params
+from .config import MAX_FILE_SIZE
 from .ai_assistant import decide_mastering
 from .mastering import MASTERING_PRESETS, PLATFORM_LOUDNESS_TARGETS, analyze_audio, mix_advice, spectrum_analysis_fft, _crop_preview
 import librosa
