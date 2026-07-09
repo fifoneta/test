@@ -5,10 +5,12 @@ from fastapi.concurrency import run_in_threadpool
 from typing import Optional
 import os, uuid, logging, time, asyncio
 try:
-    from .job_store import JobStore
+    from .job_service import JobService
+    from .audio_service import AudioService
     from .validation_utils import MAX_FILE_SIZE, coerce_ws_chain_params, validate_audio_file
 except ImportError:  # pragma: no cover - fallback for direct script execution
-    from job_store import JobStore
+    from job_service import JobService
+    from audio_service import AudioService
     from validation_utils import MAX_FILE_SIZE, coerce_ws_chain_params, validate_audio_file
 from mastering import (
     process_audio, analyze_audio, spectrum_analysis_fft, mix_advice,
@@ -22,6 +24,9 @@ from system_monitor import get_system_stats
 import ai_assistant
 from pydantic import BaseModel, Field
 import librosa, numpy as np, soundfile as sf
+from routes import build_routes
+from routers_mastering import build_mastering_router
+from routers_ai import build_ai_router
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,6 +44,14 @@ os.makedirs(PROCESSED_DIR, exist_ok=True)
 os.makedirs(STEMS_DIR,     exist_ok=True)
 
 jobs = JobService()
+audio_service = AudioService(upload_dir=UPLOAD_DIR)
+app_state = {
+    "run_in_threadpool": run_in_threadpool,
+    "sanitize_track_name": sanitize_track_name,
+}
+app.include_router(build_routes(jobs, audio_service, UPLOAD_DIR, app_state))
+app.include_router(build_mastering_router(jobs, audio_service, UPLOAD_DIR, PROCESSED_DIR, STEMS_DIR, app_state))
+app.include_router(build_ai_router(jobs, app_state))
 
 def sanitize_track_name(name: Optional[str], fallback: str = "mastered") -> str:
     """Limpia un nombre de tema provisto por el usuario para usarlo como filename seguro."""
@@ -61,27 +74,11 @@ async def read_and_validate(file: UploadFile) -> bytes:
     return data
 
 def _get_input_duration(input_path: str) -> Optional[float]:
-    """Calcula la duración del archivo (sin decodificarlo entero) para que
-    /dashboard pueda estimar el ETA del job (ver system_monitor.estimate_remaining).
-
-    BUGFIX: esta clave nunca se seteaba en ningún lado del código, por lo que
-    el ETA del dashboard en vivo siempre devolvía None / nunca calculaba nada.
-
-    BUGFIX 2: la primera versión de este fix escribía "_input_duration_sec"
-    directo en el dict `params` que también se usa para llamar a
-    process_audio(**params) — como esa función no tiene **kwargs, tirar esa
-    clave de más rompía el job con "unexpected keyword argument". Ahora esta
-    función NO muta `params`; devuelve el valor y quien la llama lo guarda
-    únicamente en jobs[job_id]["params"] (el dict de estado/dashboard, que
-    nunca se le pasa a process_audio).
-    """
-    try:
-        info = sf.info(input_path)
-        if info.samplerate:
-            return round(info.frames / info.samplerate, 3)
-    except Exception as e:
-        logger.warning(f"No se pudo calcular la duración de '{input_path}': {e}")
-    return None
+    """Calcula la duración del archivo para que /dashboard pueda estimar el ETA del job."""
+    duration = audio_service.get_duration(input_path)
+    if duration is None:
+        logger.warning(f"No se pudo calcular la duración de '{input_path}'")
+    return duration
 
 
 def cleanup_old() -> None:
@@ -270,10 +267,7 @@ async def analyze(file: UploadFile = File(...)):
         # Llamarlos directo desde un `async def` congela todo el event loop
         # (incluído /ws/dashboard y cualquier otra request concurrente)
         # durante todo el análisis. Se corren en threadpool.
-        audio, sr = await run_in_threadpool(librosa.load, tmp, sr=None, mono=False)
-        if audio.ndim == 1: audio = audio[np.newaxis, :]
-        result = await run_in_threadpool(analyze_audio, audio, sr)
-        result["mix_advice"] = mix_advice(result)
+        result = await run_in_threadpool(audio_service.analyze_file, tmp)
         return result
     except HTTPException: raise
     except Exception as e: raise HTTPException(500, str(e))
@@ -288,9 +282,7 @@ async def get_mix_advice(file: UploadFile = File(...)):
     try:
         with open(tmp, "wb") as f: f.write(data)
         # BUGFIX: mismo problema de bloqueo del event loop que en /analyze.
-        audio, sr = await run_in_threadpool(librosa.load, tmp, sr=None, mono=False)
-        if audio.ndim == 1: audio = audio[np.newaxis, :]
-        analysis = await run_in_threadpool(analyze_audio, audio, sr)
+        analysis = await run_in_threadpool(audio_service.analyze_file, tmp)
         return {"analysis": analysis, **mix_advice(analysis)}
     except HTTPException: raise
     except Exception as e: raise HTTPException(500, str(e))
@@ -431,9 +423,7 @@ async def spectrum(
     try:
         with open(tmp, "wb") as f: f.write(data)
         # BUGFIX: mismo problema de bloqueo del event loop que en /analyze.
-        audio, sr = await run_in_threadpool(librosa.load, tmp, sr=None, mono=False)
-        if audio.ndim == 1: audio = audio[np.newaxis, :]
-        return await run_in_threadpool(spectrum_analysis_fft, audio, sr, n_fft=n_fft, n_bins=n_bins)
+        return await run_in_threadpool(audio_service.spectrum_file, tmp, n_fft=n_fft, n_bins=n_bins)
     except HTTPException: raise
     except Exception as e: raise HTTPException(500, str(e))
     finally:
