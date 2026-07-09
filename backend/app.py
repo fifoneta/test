@@ -38,7 +38,7 @@ os.makedirs(UPLOAD_DIR,    exist_ok=True)
 os.makedirs(PROCESSED_DIR, exist_ok=True)
 os.makedirs(STEMS_DIR,     exist_ok=True)
 
-jobs = JobStore()
+jobs = JobService()
 
 def sanitize_track_name(name: Optional[str], fallback: str = "mastered") -> str:
     """Limpia un nombre de tema provisto por el usuario para usarlo como filename seguro."""
@@ -108,46 +108,38 @@ def _make_progress_cb(job_id: str):
     `jobs[job_id]`, que ya es lo que devuelve GET /job/{id} — así el
     frontend puede pollear progreso/etapa sin ningún endpoint nuevo."""
     def _cb(pct: int, stage: str):
-        job = jobs.get(job_id)
-        if job is None:
+        if not jobs.exists(job_id):
             return
-        job["progress"] = pct
-        job["stage"] = stage
+        jobs.update_job(job_id, progress=pct, stage=stage)
     return _cb
 
 def run_mastering_job(job_id: str, input_path: str, params: dict):
-    jobs[job_id]["status"] = "processing"
-    jobs[job_id]["started_at"] = time.time()
-    jobs[job_id]["progress"] = 0
-    jobs[job_id]["stage"] = "Iniciando procesamiento"
+    jobs.update_job(job_id, status="processing", started_at=time.time(), progress=0, stage="Iniciando procesamiento")
     try:
         cleanup_old()
         result = process_audio(input_path, progress_cb=_make_progress_cb(job_id), **params)
-        jobs[job_id].update(status="done", result=result, finished_at=time.time(),
-                             progress=100, stage="Completado")
+        jobs.update_job(job_id, status="done", result=result, finished_at=time.time(),
+                        progress=100, stage="Completado")
         logger.info(f"Job {job_id} done: {result['output_path']}")
     except Exception as e:
-        jobs[job_id].update(status="error", error=str(e))
+        jobs.update_job(job_id, status="error", error=str(e))
         logger.error(f"Job {job_id} failed: {e}", exc_info=True)
     finally:
         if os.path.exists(input_path):
             os.remove(input_path)
 
 def run_reference_job(job_id: str, input_path: str, reference_path: str, params: dict):
-    jobs[job_id]["status"] = "processing"
-    jobs[job_id]["started_at"] = time.time()
-    jobs[job_id]["progress"] = 0
-    jobs[job_id]["stage"] = "Iniciando procesamiento"
+    jobs.update_job(job_id, status="processing", started_at=time.time(), progress=0, stage="Iniciando procesamiento")
     try:
         cleanup_old()
         result = process_audio_with_reference(
             input_path, reference_path, progress_cb=_make_progress_cb(job_id), **params
         )
-        jobs[job_id].update(status="done", result=result, finished_at=time.time(),
-                             progress=100, stage="Completado")
+        jobs.update_job(job_id, status="done", result=result, finished_at=time.time(),
+                        progress=100, stage="Completado")
         logger.info(f"Job {job_id} (reference match) done: {result['output_path']}")
     except Exception as e:
-        jobs[job_id].update(status="error", error=str(e))
+        jobs.update_job(job_id, status="error", error=str(e))
         logger.error(f"Job {job_id} (reference match) failed: {e}", exc_info=True)
     finally:
         if os.path.exists(input_path):
@@ -159,10 +151,7 @@ def run_stems_job(job_id: str, input_path: str):
     """Job de separación de stems (#13, Demucs). Mismo patrón que
     run_mastering_job/run_reference_job: actualiza jobs[job_id] in-place
     para que /job/{id} lo pueda pollear con progress/stage."""
-    jobs[job_id]["status"] = "processing"
-    jobs[job_id]["started_at"] = time.time()
-    jobs[job_id]["progress"] = 0
-    jobs[job_id]["stage"] = "Iniciando separación"
+    jobs.update_job(job_id, status="processing", started_at=time.time(), progress=0, stage="Iniciando separación")
     try:
         cleanup_old()
         # BUGFIX potencial: librosa.load fuerza el mismo sr para todos los
@@ -175,8 +164,7 @@ def run_stems_job(job_id: str, input_path: str):
 
         stems = separate_stems(audio, sr, progress_cb=_make_progress_cb(job_id))
 
-        jobs[job_id]["stage"] = "Analizando stems"
-        jobs[job_id]["progress"] = 96
+        jobs.update_job(job_id, stage="Analizando stems", progress=96)
         # Timeout duro: si el análisis se cuelga por cualquier motivo (ej. un
         # futuro conflicto de threads entre libs), el job termina en error
         # después de ANALYSIS_TIMEOUT_SEC en vez de quedar trabado para
@@ -208,14 +196,15 @@ def run_stems_job(job_id: str, input_path: str):
             sf.write(out_path, data_to_write, sr, subtype="PCM_24")
             stem_paths[name] = out_path
 
-        jobs[job_id].update(
+        jobs.update_job(
+            job_id,
             status="done", finished_at=time.time(), progress=100, stage="Completado",
             stem_analysis=analysis, stem_paths=stem_paths,
             available_stems=list(stem_paths.keys()),
         )
         logger.info(f"Job {job_id} (stems) done: {list(stem_paths.keys())}")
     except Exception as e:
-        jobs[job_id].update(status="error", error=str(e))
+        jobs.update_job(job_id, status="error", error=str(e))
         logger.error(f"Job {job_id} (stems) failed: {e}", exc_info=True)
     finally:
         if os.path.exists(input_path):
@@ -226,7 +215,7 @@ def run_stems_job(job_id: str, input_path: str):
 
 @app.get("/", tags=["Info"])
 def root():
-    return {"service": "Audio Mastering API", "version": "7.0.0",
+    return {"service": "Audio Mastering API", "version": "7.0.1",
             "max_file_mb": MAX_FILE_SIZE // 1024 // 1024,
             "endpoints": ["/master", "/master/sync", "/master/reference", "/master/reference/sync",
                           "/preview", "/analyze", "/spectrum",
@@ -237,7 +226,7 @@ def root():
 
 @app.get("/health", tags=["Info"])
 def health():
-    return {"status": "ok", "jobs": len(jobs)}
+    return {"status": "ok", "jobs": len(jobs.get_all())}
 
 @app.get("/presets", tags=["Presets"])
 def list_presets():
@@ -418,11 +407,11 @@ async def ai_auto_master(
     if duration is not None:
         job_params["_input_duration_sec"] = duration
 
-    jobs[job_id] = {
+    jobs.create_job(job_id, {
         "status": "queued", "filename": file.filename, "created_at": time.time(),
         "params": job_params, "ai_decision": decision, "ai_analysis": analysis,
         "progress": 0, "stage": "En cola",
-    }
+    })
     background_tasks.add_task(run_mastering_job, job_id, input_path, params)
     logger.info(f"Auto-mastering IA: job {job_id} -> parámetros calculados por IA, platform={decision.get('platform')}")
     return {
@@ -468,10 +457,10 @@ async def stems_separate(background_tasks: BackgroundTasks, file: UploadFile = F
     if duration is not None:
         job_params["_input_duration_sec"] = duration
 
-    jobs[job_id] = {
+    jobs.create_job(job_id, {
         "status": "queued", "type": "stems", "filename": file.filename,
         "created_at": time.time(), "params": job_params, "progress": 0, "stage": "En cola",
-    }
+    })
     background_tasks.add_task(run_stems_job, job_id, input_path)
     return {"job_id": job_id, "status": "queued", "poll_url": f"/job/{job_id}"}
 
@@ -1341,9 +1330,9 @@ async def master_with_reference_sync(
 # ── Jobs ──────────────────────────────────────────────────────────────────────
 @app.get("/job/{job_id}", tags=["Jobs"])
 def get_job(job_id: str):
-    if job_id not in jobs:
+    if not jobs.exists(job_id):
         raise HTTPException(404, "Job no encontrado")
-    job = jobs[job_id].copy()
+    job = jobs.get_job(job_id).copy()
     if job.get("type") == "stems":
         # Job de stem separation (#13) — no tiene "result" como los de
         # mastering, ya deja stem_analysis/available_stems seteados en
@@ -1372,9 +1361,9 @@ def get_job(job_id: str):
 
 @app.get("/download/{job_id}", tags=["Jobs"])
 def download(job_id: str, name: Optional[str] = Query(None, description="Nombre del tema para el archivo descargado")):
-    if job_id not in jobs:
+    if not jobs.exists(job_id):
         raise HTTPException(404, "Job no encontrado")
-    job = jobs[job_id]
+    job = jobs.get_job(job_id)
     if job["status"] != "done":
         raise HTTPException(400, f"Job no listo: {job['status']}")
     output_path = job["result"]["output_path"]
@@ -1387,9 +1376,9 @@ def download(job_id: str, name: Optional[str] = Query(None, description="Nombre 
 
 @app.get("/report/{job_id}", tags=["Jobs"])
 def export_report(job_id: str):
-    if job_id not in jobs:
+    if not jobs.exists(job_id):
         raise HTTPException(404, "Job no encontrado")
-    job = jobs[job_id]
+    job = jobs.get_job(job_id)
     if job["status"] != "done":
         raise HTTPException(400, f"Job no listo: {job['status']}")
     report = {
