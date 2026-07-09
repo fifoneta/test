@@ -224,7 +224,16 @@ def root():
 
 @app.get("/health", tags=["Info"])
 def health():
-    return {"status": "ok", "jobs": len(jobs.get_all())}
+    return {
+        "status": "ok",
+        "service": "Audio Mastering API",
+        "version": app.version,
+        "jobs": len(jobs.get_all()),
+        "upload_dir": UPLOAD_DIR,
+        "processed_dir": PROCESSED_DIR,
+        "stems_dir": STEMS_DIR,
+        "max_file_size_mb": MAX_FILE_SIZE // 1024 // 1024,
+    }
 
 @app.get("/presets", tags=["Presets"])
 def list_presets():
