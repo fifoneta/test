@@ -72,8 +72,10 @@
   .btn{width:100%;padding:.9rem;border:none;border-radius:9px;font-family:var(--sans);font-size:.92rem;font-weight:700;cursor:pointer;transition:opacity .15s,transform .1s,box-shadow .15s}
   .btn:active{transform:scale(.98)}
   .btn:disabled{opacity:.4;cursor:not-allowed}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;letter-spacing:.04em;box-shadow:0 4px 16px rgba(139,108,255,.35)}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;letter-spacing:.04em;box-shadow:0 4px 16px rgba(139,108,255,.35);position:relative;overflow:hidden}
   .btn-primary:not(:disabled):hover{box-shadow:0 6px 22px rgba(139,108,255,.5)}
+  .btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-120%);transition:transform .5s ease}
+  .btn-primary:not(:disabled):hover::after{transform:translateX(120%)}
   .btn-secondary{background:var(--surface2);border:1px solid var(--border);color:var(--text);margin-top:.5rem}
   .btn-secondary:not(:disabled):hover{border-color:var(--blue);color:var(--blue)}
   .btn-download{background:rgba(47,230,160,.15);border:1px solid var(--green);color:var(--green);margin-top:.5rem;display:none;font-weight:700}
@@ -136,6 +138,15 @@
   .workflow-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
   .workflow-step{background:rgba(7,8,14,.35);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.6rem .7rem;font-size:.74rem;color:var(--text)}
   .workflow-step strong{display:block;font-size:.72rem;font-family:var(--mono);color:var(--accent);margin-bottom:.2rem;letter-spacing:.08em;text-transform:uppercase}
+  .studio-focus{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem;background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(139,108,255,.06));border:1px solid var(--border);border-radius:14px;padding:1rem 1.1rem}
+  .studio-focus-copy h3{font-size:.96rem;margin-bottom:.35rem}
+  .studio-focus-copy p{color:var(--muted);font-size:.8rem;line-height:1.45}
+  .studio-focus-kicker{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:.4rem}
+  .studio-focus-pills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+  .focus-pill{display:flex;align-items:flex-start;gap:.55rem;padding:.65rem;border-radius:10px;background:rgba(7,8,14,.35);border:1px solid rgba(255,255,255,.06)}
+  .focus-pill-num{font-family:var(--mono);font-size:.72rem;color:var(--accent);padding-top:.1rem}
+  .focus-pill strong{display:block;font-size:.74rem;margin-bottom:.18rem}
+  .focus-pill span{font-size:.68rem;color:var(--muted);line-height:1.35}
 
   .status-bar{background:linear-gradient(120deg,rgba(139,108,255,.1),var(--surface));border:1px solid var(--accent);border-radius:10px;padding:1.1rem 1.3rem;display:flex;flex-direction:column;align-items:stretch;gap:.6rem;font-size:.85rem}
   .status-bar-top{display:flex;align-items:center;gap:.7rem}
@@ -239,9 +250,9 @@
   .delta.up{background:rgba(62,252,160,.15);color:var(--green)}
   .delta.down{background:rgba(252,92,92,.15);color:var(--red)}
 
-  .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;gap:.75rem}
+  .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);text-align:center;gap:.75rem;background:linear-gradient(135deg,rgba(255,255,255,.025),rgba(139,108,255,.05));border:1px dashed rgba(139,108,255,.28);border-radius:14px;padding:2rem 1.5rem;min-height:220px}
   .empty-state .big{font-size:3rem}
-  .empty-state p{font-size:.85rem;max-width:260px;line-height:1.5}
+  .empty-state p{font-size:.85rem;max-width:280px;line-height:1.5}
 
   @media(max-width:768px){
     main{grid-template-columns:1fr}
@@ -249,6 +260,8 @@
     .analysis-grid{grid-template-columns:1fr}
     .workflow-hero{grid-template-columns:1fr}
     .workflow-steps{grid-template-columns:1fr}
+    .studio-focus{grid-template-columns:1fr}
+    .studio-focus-pills{grid-template-columns:1fr}
   }
 
   .preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.75rem}
@@ -816,7 +829,7 @@
     </div>
 
     <!-- Acciones — los botones secundarios se revelan al cargar un archivo -->
-    <div style="display:flex;flex-direction:column;gap:.4rem">
+    <div class="process-card" style="padding:0.8rem;border-radius:12px;background:linear-gradient(135deg,rgba(139,108,255,.08),rgba(255,255,255,.02));display:flex;flex-direction:column;gap:.45rem">
       <button class="btn btn-automaster" id="btnAutoMaster" disabled style="display:none">🤖 Auto-Mastering IA</button>
       <button class="btn btn-primary" id="btnMaster" disabled>▶ Masterizar</button>
       <button class="btn btn-secondary" id="btnAnalyze" disabled style="display:none">🔍 Solo analizar</button>
@@ -847,6 +860,20 @@
           <div class="workflow-step"><strong>2 · Análisis</strong>LUFS, dinámica y espectro</div>
           <div class="workflow-step"><strong>3 · Cadena</strong>EQ, compresión, estéreo y limiter</div>
           <div class="workflow-step"><strong>4 · Entrega</strong>Preview, stems y descarga</div>
+        </div>
+      </div>
+
+      <div class="studio-focus">
+        <div class="studio-focus-copy">
+          <div class="studio-focus-kicker">Flujo de estudio</div>
+          <h3>Una cadena que se entiende de principio a fin.</h3>
+          <p>Subí tu audio, elige un preset o una referencia, ajusta la cadena con claridad y revisa el resultado sin perder el control.</p>
+        </div>
+        <div class="studio-focus-pills">
+          <div class="focus-pill"><span class="focus-pill-num">01</span><div><strong>Ingesta</strong><span>Archivo, contexto y referencia</span></div></div>
+          <div class="focus-pill"><span class="focus-pill-num">02</span><div><strong>Revisión</strong><span>LUFS, espectro y dinámica</span></div></div>
+          <div class="focus-pill"><span class="focus-pill-num">03</span><div><strong>Cadena</strong><span>EQ, compresión y estéreo</span></div></div>
+          <div class="focus-pill"><span class="focus-pill-num">04</span><div><strong>Entrega</strong><span>Preview, stems y descarga</span></div></div>
         </div>
       </div>
 
